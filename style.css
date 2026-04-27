@@ -64,7 +64,7 @@ a:hover { color: var(--primary-hover); }
 
 /* Header */
 .site-header {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);
   color: white;
   padding: 3.5rem 1.5rem 2.5rem;
   text-align: center;
@@ -73,7 +73,7 @@ a:hover { color: var(--primary-hover); }
 }
 
 [data-theme="dark"] .site-header {
-  background: linear-gradient(135deg, #1e3a8a 0%, #4c1d95 100%);
+  background: linear-gradient(135deg, #7f1d1d 0%, #450a0a 100%);
 }
 
 .site-header::before {
@@ -823,4 +823,177 @@ mark {
   .search-wrap { max-width: none; flex-wrap: wrap; }
   .lang-switch { order: 0; }
   .lang-btn { padding: 0.3rem 0.55rem; font-size: 0.8rem; }
+}
+
+/* ========== prompt block (useful-prompts 专属) ========== */
+.prompt-block {
+  margin-top: 1.4rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--surface-2);
+}
+.prompt-block-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.6rem 0.9rem;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  font-size: 0.88rem;
+}
+.prompt-block-title {
+  color: var(--text-2);
+  font-weight: 500;
+}
+.prompt-copy-btn {
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 0.35rem 0.85rem;
+  font-size: 0.85rem;
+  font-family: inherit;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background var(--transition);
+}
+.prompt-copy-btn:hover { background: var(--primary-hover); }
+.prompt-copy-btn.copied {
+  background: var(--success);
+}
+.prompt-block-body {
+  margin: 0;
+  padding: 1rem 1.1rem;
+  font-family: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, Consolas, monospace;
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: var(--text);
+  background: var(--surface-2);
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-x: auto;
+  max-height: 480px;
+  overflow-y: auto;
+}
+
+
+/* ========== sister sites footer (cross-link to other catalogs) ========== */
+.sister-sites {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem 0.8rem;
+  font-size: 0.88rem;
+}
+.sister-label {
+  color: var(--text-3);
+  margin-right: 0.3rem;
+}
+.sister-sites a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.32rem 0.85rem;
+  border-radius: 999px;
+  background: var(--surface-2);
+  color: var(--text-2);
+  text-decoration: none;
+  transition: all var(--transition);
+  border: 1px solid transparent;
+}
+.sister-sites a:hover {
+  background: var(--primary);
+  color: white;
+}
+.sister-sites a.current {
+  background: color-mix(in srgb, var(--primary) 14%, transparent);
+  color: var(--primary);
+  font-weight: 500;
+  border-color: color-mix(in srgb, var(--primary) 30%, transparent);
+  pointer-events: none;
+}
+
+/* useful-prompts: card 上的"点开看完整提示词"提示文案（替代之前的访问按钮） */
+.card-hint {
+  font-size: 0.85rem;
+  color: var(--primary);
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.35rem 0;
+}
+
+
+/* ========== modal scroll artifact fixes ========== */
+/* 1. 提前预留滚动条宽度，避免出现/消失时整个 modal 内容跳动 */
+.modal-content {
+  scrollbar-gutter: stable;
+  /* 让 modal-content 自成 paint 层，scroll 时不影响外面的 backdrop-filter */
+  contain: layout paint;
+}
+
+/* 2. 屏蔽鼠标点击产生的 focus outline（这就是"中间那条白色描边"的来源——
+   当 close / fav 按钮被点中再失焦时，旧版本浏览器会留下短暂的 outline）
+   但保留键盘 tab 的 focus-visible 让无障碍导航仍可见 */
+.modal :focus { outline: none; }
+.modal :focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* 3. 自定义 webkit 滚动条样式，避免亮色滚动条在暗色模态里突兀 */
+.modal-content::-webkit-scrollbar { width: 8px; }
+.modal-content::-webkit-scrollbar-track { background: transparent; }
+.modal-content::-webkit-scrollbar-thumb {
+  background: color-mix(in srgb, var(--text-3) 40%, transparent);
+  border-radius: 4px;
+}
+.modal-content::-webkit-scrollbar-thumb:hover {
+  background: color-mix(in srgb, var(--text-3) 70%, transparent);
+}
+
+/* useful-prompts: card 上的"📋 复制"按钮（无需开弹窗，直接拷贝） */
+.card-copy {
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 0.32rem 0.75rem;
+  font-size: 0.82rem;
+  font-family: inherit;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background var(--transition);
+  white-space: nowrap;
+}
+.card-copy:hover { background: var(--primary-hover); }
+.card-copy.copied { background: var(--success); }
+
+/* card-actions 现在有 hint + 复制按钮 + 媒体角标，确保间距合理 */
+.card-actions { gap: 0.5rem; }
+
+/* ===== useful-labor 专属：disclaimer banner ===== */
+.disclaimer-banner {
+  background: #fef3c7;
+  color: #78350f;
+  border-bottom: 1px solid #fcd34d;
+  padding: 0.7rem 1.2rem;
+  text-align: center;
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+[data-theme="dark"] .disclaimer-banner {
+  background: rgba(251, 191, 36, 0.12);
+  color: #fde68a;
+  border-bottom-color: rgba(251, 191, 36, 0.3);
+}
+
+/* card 上的小尺寸"查看法条"链接 */
+.card-link-small {
+  font-size: 0.78rem;
+  padding: 0.28rem 0.7rem;
 }

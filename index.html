@@ -1,54 +1,47 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!--
-    {{TODO}} Replace every {{PLACEHOLDER}} below before going live.
-    Search the file for "{{" to find them all.
-  -->
-  <meta name="description" content="{{SHORT_SITE_DESCRIPTION}}">
-  <meta name="keywords" content="{{COMMA_SEPARATED_KEYWORDS}}">
-  <meta name="author" content="{{YOUR_GITHUB_USERNAME}}">
-  <meta name="theme-color" content="#667eea">
-  <link rel="canonical" href="https://{{YOUR_USERNAME}}.github.io/{{YOUR_REPO_NAME}}/">
-  <title>{{SITE_TITLE_FOR_BROWSER_TAB}}</title>
+  <meta name="description" content="中国劳动法 / 仲裁实用话术 + 案例库（员工视角）。N / N+1 / 2N 计算、加班费、试用期陷阱、社保维权、解除合同等常见场景，附一键复制邮件 / 通知函模板。">
+  <meta name="keywords" content="劳动法, 劳动仲裁, 员工维权, N+1, 2N, 经济补偿金, 加班费, 试用期, 社保补缴, 调岗降薪, 自愿离职, HR 话术, 中国劳动法">
+  <meta name="author" content="HowCanLove">
+  <meta name="theme-color" content="#dc2626">
+  <link rel="canonical" href="https://labor.512347.xyz/">
+  <title>劳动维权指南 · 员工话术 + 仲裁案例 · 一键复制模板</title>
   <link rel="stylesheet" href="style.css">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛠️</text></svg>">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛡️</text></svg>">
 
-  <!-- Open Graph (Facebook / WeChat / Telegram / Discord / Slack / LinkedIn) -->
   <meta property="og:type" content="website">
-  <meta property="og:site_name" content="{{SITE_NAME}}">
-  <meta property="og:title" content="{{SITE_TITLE}}">
-  <meta property="og:description" content="{{SHORT_SITE_DESCRIPTION}}">
-  <meta property="og:url" content="https://{{YOUR_USERNAME}}.github.io/{{YOUR_REPO_NAME}}/">
-  <meta property="og:image" content="https://{{YOUR_USERNAME}}.github.io/{{YOUR_REPO_NAME}}/og-image.png">
+  <meta property="og:site_name" content="劳动维权指南">
+  <meta property="og:title" content="劳动维权指南 · 员工话术 + 仲裁案例">
+  <meta property="og:description" content="中国劳动法 / 仲裁实用话术 + 案例库（员工视角），附一键复制邮件 / 通知函模板。中文 / English / 日本語。">
+  <meta property="og:url" content="https://labor.512347.xyz/">
+  <meta property="og:image" content="https://labor.512347.xyz/og-image.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="{{SITE_NAME}}">
-  <meta property="og:locale" content="en_US">
-  <meta property="og:locale:alternate" content="zh_CN">
+  <meta property="og:image:alt" content="劳动维权指南 — 员工视角的话术与案例">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:locale:alternate" content="en_US">
   <meta property="og:locale:alternate" content="ja_JP">
 
-  <!-- Twitter / X -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="{{SITE_TITLE}}">
-  <meta name="twitter:description" content="{{SHORT_SITE_DESCRIPTION}}">
-  <meta name="twitter:image" content="https://{{YOUR_USERNAME}}.github.io/{{YOUR_REPO_NAME}}/og-image.png">
+  <meta name="twitter:title" content="劳动维权指南 · 员工话术 + 仲裁案例">
+  <meta name="twitter:description" content="中国劳动法实用话术 + 案例库，一键复制邮件 / 通知函模板。">
+  <meta name="twitter:image" content="https://labor.512347.xyz/og-image.png">
 
-  <!-- JSON-LD structured data so Google can render rich results -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    "name": "{{SITE_NAME}}",
-    "url": "https://{{YOUR_USERNAME}}.github.io/{{YOUR_REPO_NAME}}/",
-    "description": "{{SHORT_SITE_DESCRIPTION}}",
-    "inLanguage": ["en", "zh-CN", "ja"],
+    "name": "劳动维权指南",
+    "url": "https://labor.512347.xyz/",
+    "description": "中国劳动法 / 仲裁实用话术 + 案例库（员工视角）。",
+    "inLanguage": ["zh-CN", "en", "ja"],
     "potentialAction": {
       "@type": "SearchAction",
-      "target": "https://{{YOUR_USERNAME}}.github.io/{{YOUR_REPO_NAME}}/?q={search_term_string}",
+      "target": "https://labor.512347.xyz/?q={search_term_string}",
       "query-input": "required name=search_term_string"
     }
   }
@@ -57,35 +50,34 @@
 <body>
   <header class="site-header">
     <div class="header-inner">
-      <h1 class="site-title" data-i18n="site.title">🛠️ {{SITE_NAME}}</h1>
-      <p class="site-tagline" data-i18n="site.tagline">{{SITE_TAGLINE}}</p>
-      <a class="header-link" href="https://github.com/{{YOUR_USERNAME}}/{{YOUR_REPO_NAME}}" target="_blank" rel="noopener">
+      <h1 class="site-title" data-i18n="site.title">🛡️ 劳动维权指南</h1>
+      <p class="site-tagline" data-i18n="site.tagline">员工视角的劳动法话术 + 案例 · 一键复制邮件模板</p>
+      <a class="header-link" href="https://github.com/HowCanLove/useful-labor" target="_blank" rel="noopener">
         <svg height="20" viewBox="0 0 16 16" width="20" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
         <span data-i18n="header.github">GitHub</span>
       </a>
     </div>
   </header>
 
+  <!-- 法律免责声明（始终显示） -->
+  <div class="disclaimer-banner" data-i18n="disclaimer">
+    ⚠️ 本站内容仅供参考，不构成法律意见。具体案情请务必咨询执业律师。劳动法可能更新，请以最新法条为准。
+  </div>
+
   <main class="container">
     <section class="controls">
-      <!--
-        {{TODO}} Update the four os-tab buttons to your primary axis.
-        For browser extensions: Chrome / Firefox / Edge / Cross.
-        For AI prompts: GPT / Claude / Gemini / All.
-        Keep `data-os="..."` matching the values you use in data.js.
-      -->
       <div class="os-tabs" role="tablist">
-        <button class="os-tab active" data-os="all">All</button>
-        <button class="os-tab" data-os="windows">🪟 Windows</button>
-        <button class="os-tab" data-os="macos">🍎 macOS</button>
-        <button class="os-tab" data-os="cross">🌐 Cross-platform</button>
+        <button class="os-tab active" data-os="all">全部</button>
+        <button class="os-tab" data-os="windows">👤 在职</button>
+        <button class="os-tab" data-os="macos">🚪 离职 / 被裁</button>
+        <button class="os-tab" data-os="cross">📚 通用知识</button>
       </div>
       <button id="favToggle" class="fav-toggle" aria-pressed="false">
-        <span id="favToggleLabel">⭐ Favorites (0)</span>
+        <span id="favToggleLabel">⭐ 收藏 (0)</span>
       </button>
       <div class="search-wrap">
         <input id="searchInput" type="search" placeholder="" autocomplete="off" data-i18n-attr="placeholder:search.placeholder,aria-label:search.placeholder">
-        <div id="langSwitch" class="lang-switch" role="tablist" aria-label="Switch language" data-i18n-attr="aria-label:lang.toggle">
+        <div id="langSwitch" class="lang-switch" role="tablist" aria-label="切换语言" data-i18n-attr="aria-label:lang.toggle">
           <!-- populated by JS -->
         </div>
         <button id="themeToggle" class="theme-toggle" data-i18n-attr="title:theme.toggle,aria-label:theme.toggle">
@@ -102,11 +94,11 @@
     <div class="result-row">
       <p class="result-count" id="resultCount"></p>
       <div class="sort-wrap">
-        <label for="sortSelect" class="sort-label" data-i18n="sort.label">Sort:</label>
+        <label for="sortSelect" class="sort-label" data-i18n="sort.label">排序：</label>
         <select id="sortSelect" class="sort-select">
-          <option value="default" data-i18n="sort.default">Recommended</option>
-          <option value="name-asc" data-i18n="sort.nameAsc">Name A→Z</option>
-          <option value="name-desc" data-i18n="sort.nameDesc">Name Z→A</option>
+          <option value="default" data-i18n="sort.default">推荐顺序</option>
+          <option value="name-asc" data-i18n="sort.nameAsc">名称 A→Z</option>
+          <option value="name-desc" data-i18n="sort.nameDesc">名称 Z→A</option>
         </select>
       </div>
     </div>
@@ -121,6 +113,13 @@
   <footer class="site-footer">
     <p id="footerText"></p>
     <span hidden id="totalCount">0</span>
+    <div class="sister-sites">
+      <span class="sister-label">姐妹站 / Sister sites:</span>
+      <a href="https://512347.xyz/">🛠️ Software</a>
+      <a href="https://vscode.512347.xyz/">💻 VS Code</a>
+      <a href="https://prompts.512347.xyz/">🤖 Prompts</a>
+      <a href="https://labor.512347.xyz/" class="current">🛡️ 劳动法</a>
+    </div>
   </footer>
 
   <!-- Detail modal -->

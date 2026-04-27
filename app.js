@@ -7,6 +7,7 @@
   const OS_STORAGE_KEY = 'os';
   const FAVORITES_STORAGE_KEY = 'favorites';
   const SORT_STORAGE_KEY = 'sort';
+  const CATEGORY_STORAGE_KEY = 'category';
 
   const state = {
     lang: DEFAULT_LANG,
@@ -279,6 +280,7 @@
   function persistOs() {
     try { localStorage.setItem(OS_STORAGE_KEY, state.os); } catch (e) {}
   }
+function loadCategory() {    try {      const saved = localStorage.getItem(CATEGORY_STORAGE_KEY);      if (saved) state.category = saved;    } catch (e) {}  }  function persistCategory() {    try { localStorage.setItem(CATEGORY_STORAGE_KEY, state.category); } catch (e) {}  }
 
   // ---------- language detection ----------
 
@@ -417,6 +419,7 @@
     $chips.querySelectorAll('.chip').forEach(chip => {
       chip.addEventListener('click', () => {
         state.category = chip.dataset.cat;
+        persistCategory();
         $chips.querySelectorAll('.chip').forEach(c => c.classList.toggle('active', c.dataset.cat === state.category));
         render();
       });
@@ -470,8 +473,9 @@
         </div>
         <p class="card-desc">${highlight(descFor(item), state.query)}</p>
         <div class="card-actions">
-          <a class="card-link" href="${safeUrl}" target="_blank" rel="noopener noreferrer" data-no-modal>${t('card.visit')}</a>
-          ${downloadBtn}
+          <span class="card-hint">👉 ${t('card.openHint')}</span>
+          ${item.prompt ? `<button class="card-copy" type="button" data-no-modal data-copy-idx="${idx}" title="${escapeHtml(t('card.copyTitle'))}">${escapeHtml(t('prompt.copy'))}</button>` : ''}
+          <a class="card-link card-link-small" href="${safeUrl}" target="_blank" rel="noopener noreferrer" data-no-modal title="${escapeHtml(t('card.visitTitle'))}">${t('card.visit')}</a>
           ${mediaBadge}
         </div>
       </article>
@@ -534,6 +538,30 @@
         if (item) toggleFavorite(item);
       });
     });
+    // useful-prompts: 卡片上的"📋 复制"按钮直接拷贝 prompt，不开弹窗
+    $grid.querySelectorAll('.card-copy').forEach(btn => {
+      btn.addEventListener('click', e => {
+        e.stopPropagation();
+        const idx = parseInt(btn.dataset.copyIdx, 10);
+        const item = CATALOG[idx];
+        if (!item || !item.prompt) return;
+        const flash = (text, cls) => {
+          btn.textContent = text;
+          if (cls) btn.classList.add(cls);
+          setTimeout(() => {
+            btn.textContent = t('prompt.copy');
+            btn.classList.remove('copied');
+          }, 1500);
+        };
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(item.prompt)
+            .then(() => flash(t('prompt.copied'), 'copied'))
+            .catch(() => flash('✗', null));
+        } else {
+          flash('✗', null);
+        }
+      });
+    });
   }
 
   // ---------- modal ----------
@@ -562,37 +590,58 @@
     $modalBadges.innerHTML = badgesHTML(item);
     $modalDesc.innerHTML = '<p>' + escapeHtml(descFor(item)).replace(/\n\s*\n/g, '</p><p>') + '</p>';
 
-    if (Array.isArray(item.media) && item.media.length) {
-      $modalMedia.innerHTML = item.media.map(mediaItemHTML).join('');
-      $modalMedia.hidden = false;
-      $modalMediaEmpty.hidden = true;
-    } else {
-      $modalMedia.innerHTML = '';
-      $modalMedia.hidden = true;
-      const editUrl = 'https://github.com/HowCanLove/useful-software/edit/main/data.js';
-      const noMediaText = state.lang === 'zh'
-        ? `🖼️ 暂无截图或视频。可以 <a href="${editUrl}" target="_blank" rel="noopener">编辑 data.js</a> 给这条加 <code>media</code> 字段。`
-        : state.lang === 'ja'
-          ? `🖼️ スクリーンショット・動画は未登録。<a href="${editUrl}" target="_blank" rel="noopener">data.js</a> を編集して <code>media</code> フィールドを追加できます。`
-          : `🖼️ No screenshots or videos yet. <a href="${editUrl}" target="_blank" rel="noopener">Edit data.js</a> to add a <code>media</code> field for this entry.`;
-      $modalMediaEmpty.innerHTML = noMediaText;
-      $modalMediaEmpty.hidden = false;
+    // useful-prompts 专属：渲染 prompt 字段（完整提示词）+ 一键复制按钮
+    if (item.prompt) {
+      const promptHtml = `
+        <div class="prompt-block">
+          <div class="prompt-block-head">
+            <span class="prompt-block-title">${escapeHtml(t('prompt.title'))}</span>
+            <button class="prompt-copy-btn" type="button" data-prompt-copy>${escapeHtml(t('prompt.copy'))}</button>
+          </div>
+          <pre class="prompt-block-body"><code id="modalPromptText"></code></pre>
+        </div>
+      `;
+      $modalDesc.insertAdjacentHTML('beforeend', promptHtml);
+      const codeEl = $modalDesc.querySelector('#modalPromptText');
+      if (codeEl) codeEl.textContent = item.prompt;
+      const btn = $modalDesc.querySelector('[data-prompt-copy]');
+      if (btn) {
+        btn.addEventListener('click', () => {
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(item.prompt).then(() => {
+              btn.textContent = t('prompt.copied');
+              btn.classList.add('copied');
+              setTimeout(() => {
+                btn.textContent = t('prompt.copy');
+                btn.classList.remove('copied');
+              }, 1600);
+            }).catch(() => fallbackSelect());
+          } else {
+            fallbackSelect();
+          }
+          function fallbackSelect() {
+            const range = document.createRange();
+            range.selectNode(codeEl);
+            getSelection().removeAllRanges();
+            getSelection().addRange(range);
+          }
+        });
+      }
     }
 
+    // useful-prompts: 提示词不需要截图/视频，永远隐藏 media 区与"暂无截图"占位
+    $modalMedia.innerHTML = '';
+    $modalMedia.style.display = 'none';
+    $modalMediaEmpty.style.display = 'none';
+
+    // useful-labor: 显示官网/法条链接 (modalLink)，但不显示 download (复制提示词通过下面的 prompt-block 按钮)
     $modalLink.href = item.url;
     $modalLink.textContent = `${t('card.visit')}  ·  ${hostnameFor(item.url)}`;
-
-    const dl = downloadInfoFor(item);
-    if (dl.url) {
-      $modalDownload.href = dl.url;
-      const versionTag = dl.hasDirect && dl.version ? `  ·  ${t('card.version', { v: dl.version })}` : '';
-      $modalDownload.textContent = `${t('card.download')}${versionTag}`;
-      $modalDownload.title = t(dl.hasDirect ? 'card.downloadTitle' : 'card.downloadFallbackTitle');
-      $modalDownload.classList.toggle('modal-download-fallback', !dl.hasDirect);
-      $modalDownload.hidden = false;
-    } else {
-      $modalDownload.hidden = true;
-    }
+    // 用 style.display 而不是 .hidden，因为 .modal-link-btn { display: inline-flex } 会覆盖 [hidden] 默认样式
+    
+    $modalDownload.style.display = 'none';
+    // 两个按钮都没了，把它们的父容器（modal-footer）一起隐藏，避免留一条空白分割线
+    
 
     updateModalFav();
 
@@ -672,6 +721,7 @@
   state.os = detectInitialOs();
   loadFavorites();
   loadSort();
+  loadCategory();
   loadVersions();
   $totalCount.textContent = CATALOG.length;
   applyLangToDocument();
