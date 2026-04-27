@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://{{YOUR_USERNAME}}.github.io/{{YOUR_REPO_NAME}}/</loc>
+    <lastmod>{{YYYY-MM-DD}}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://{{YOUR_USERNAME}}.github.io/{{YOUR_REPO_NAME}}/"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://{{YOUR_USERNAME}}.github.io/{{YOUR_REPO_NAME}}/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://{{YOUR_USERNAME}}.github.io/{{YOUR_REPO_NAME}}/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://{{YOUR_USERNAME}}.github.io/{{YOUR_REPO_NAME}}/"/>
+  </url>
+</urlset>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>OG image</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1200px; height: 630px; overflow: hidden; }
+  body {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    color: white;
+    position: relative;
+  }
+  body::before {
+    content: "";
+    position: absolute; inset: 0;
+    background-image:
+      radial-gradient(circle at 20% 30%, rgba(255,255,255,0.18), transparent 45%),
+      radial-gradient(circle at 80% 70%, rgba(255,255,255,0.15), transparent 45%);
+    pointer-events: none;
+  }
+
+  .badge {
+    position: absolute; top: 60px; left: 70px;
+    padding: 6px 16px;
+    background: rgba(255,255,255,0.2);
+    border: 1px solid rgba(255,255,255,0.4);
+    border-radius: 999px;
+    font-size: 18px;
+    font-weight: 500;
+  }
+
+  h1 {
+    position: absolute; top: 130px; left: 70px;
+    font-size: 80px;
+    font-weight: 800;
+    letter-spacing: -2px;
+    line-height: 1;
+  }
+  h1 .emoji { font-size: 72px; margin-right: 10px; vertical-align: -4px; }
+
+  .tagline {
+    position: absolute; top: 240px; left: 70px;
+    font-size: 28px;
+    font-weight: 400;
+    opacity: 0.95;
+    line-height: 1.35;
+    max-width: 1060px;
+  }
+
+  .features {
+    position: absolute; top: 360px; left: 70px;
+    display: flex;
+    gap: 12px;
+    flex-wrap: nowrap;
+  }
+  .feature {
+    padding: 8px 18px;
+    background: rgba(0,0,0,0.22);
+    border-radius: 10px;
+    font-size: 19px;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  .stats {
+    position: absolute; bottom: 60px; left: 70px;
+    display: flex;
+    gap: 36px;
+  }
+  .stat-num {
+    font-size: 44px;
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -1px;
+  }
+  .stat-lbl {
+    font-size: 16px;
+    opacity: 0.85;
+    margin-top: 4px;
+  }
+
+  .url {
+    position: absolute; bottom: 60px; right: 70px;
+    font-size: 22px;
+    font-weight: 600;
+    text-align: right;
+  }
+  .url small { display: block; font-size: 15px; opacity: 0.8; margin-top: 4px; font-weight: 400; }
+</style>
+</head>
+<body>
+  <!-- {{TODO}} Replace placeholders, then run `node scripts/render-og.mjs` -->
+  <span class="badge">🛠️ {{Catalog tagline · short}}</span>
+  <h1><span class="emoji">🛠️</span>{{Site Name}}</h1>
+  <p class="tagline">{{One-sentence pitch line 1}},<br>{{One-sentence pitch line 2}}.</p>
+  <div class="features">
+    <span class="feature">🪟 Axis option 1</span>
+    <span class="feature">🍎 Axis option 2</span>
+    <span class="feature">🌐 Axis option 3</span>
+    <span class="feature">📥 Killer feature</span>
+    <span class="feature">🌍 中 / EN / 日</span>
+  </div>
+  <div class="stats">
+    <div>
+      <div class="stat-num">100+</div>
+      <div class="stat-lbl">Items curated</div>
+    </div>
+    <div>
+      <div class="stat-num">38</div>
+      <div class="stat-lbl">Auto-updated</div>
+    </div>
+    <div>
+      <div class="stat-num">3</div>
+      <div class="stat-lbl">Languages</div>
+    </div>
+  </div>
+  <div class="url">
+    {{your-username}}.github.io/{{your-repo}}
+    <small>github.com/{{your-username}}/{{your-repo}}</small>
+  </div>
+</body>
+</html>
