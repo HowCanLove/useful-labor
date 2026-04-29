@@ -80,6 +80,11 @@
     return (item.desc && (item.desc[state.lang] || item.desc[DEFAULT_LANG])) || '';
   }
 
+  // 卡片摘要：优先用 summary（短一句话），没有就 fallback 到完整 desc
+  function summaryFor(item) {
+    return item.summary || descFor(item);
+  }
+
   function faviconFor(url) {
     try {
       const host = new URL(url).hostname;
@@ -342,6 +347,8 @@ function loadCategory() {    try {      const saved = localStorage.getItem(CATEG
   }
 
   function buildLangSwitch() {
+    // 单语言模式：DOM 中已无 #langSwitch 容器，跳过渲染
+    if (!$langSwitch || SUPPORTED_LANGS.length <= 1) return;
     const buttons = SUPPORTED_LANGS.map(l => {
       const active = l.code === state.lang ? ' active' : '';
       return `<button class="lang-btn${active}" data-lang="${l.code}" title="${l.name}">${l.name}</button>`;
@@ -471,7 +478,7 @@ function loadCategory() {    try {      const saved = localStorage.getItem(CATEG
           <h3 class="card-name">${highlight(item.name, state.query)}</h3>
           <div class="card-badges">${badgesHTML(item)}</div>
         </div>
-        <p class="card-desc">${highlight(descFor(item), state.query)}</p>
+        <p class="card-desc">${highlight(summaryFor(item), state.query)}</p>
         <div class="card-actions">
           <span class="card-hint">👉 ${t('card.openHint')}</span>
           ${item.prompt ? `<button class="card-copy" type="button" data-no-modal data-copy-idx="${idx}" title="${escapeHtml(t('card.copyTitle'))}">${escapeHtml(t('prompt.copy'))}</button>` : ''}
