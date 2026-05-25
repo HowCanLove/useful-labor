@@ -511,7 +511,7 @@ function loadCategory() {    try {      const saved = localStorage.getItem(CATEG
 
     const footer = document.getElementById('footerText');
     if (footer) {
-      const linkHTML = `<a href="https://github.com/HowCanLove/useful-software/edit/main/data.js" target="_blank" rel="noopener">${t('footer.linkText')}</a>`;
+      const linkHTML = t('footer.linkText');
       footer.innerHTML = t('footer.text', { link: linkHTML, n: CATALOG.length });
     }
 
